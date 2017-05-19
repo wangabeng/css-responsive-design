@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+
+<style>
+	/*确保css中定义的宽不会随着border和padding的设置而变化。通配符不建议使用*/
+	*{
+		-moz-box-sizing:border-box;
+		box-sizing:border-box;
+	}
+
+	.container{
+		width:100%;
+		max-width:1096px;
+		border:1px solid blue;
+		-overflow: hidden;
+	}
+	.nav{
+		width:100%;
+		background-color:black;
+		color:white;
+	}
+	.nav h1{
+		font-size:36px;
+	}
+	.columnwrapper{
+		width:80%;
+		float:left;
+	}
+	.sidebar{
+		width:25%;
+		float:left;
+		height:100px;
+		border:1px solid red;
+	}
+	.main{
+		width:75%;
+		float:left;
+		border:1px solid red;
+	}
+	.main img{
+		max-width:50%;
+	}
+
+	.rightbar{
+		width:20%;
+		float:left;
+		border:1px solid green;
+	}
+	.footer{
+		clear:both;
+		border:1px solid blue;
+	}
+	
+	/*为平板电脑添加样式*/
+	@media (min-width:481px) and (max-width: 768px){
+		.rightbar{
+			float:none;
+			width:100%;/*or auto*/
+		}
+		.columnwrapper{
+			width:auto;
+		}
+	}
+	/*为手机添加样式*/
+	@media (max-width:480px){
+		.columnwrapper,.sidebar,.main,.rightbar{
+			float:none;
+			width:100%;
+			clear:both;
+		}
+		.nav h1{
+			font-size:1.5em;
+		}
+	}
+</style>
+
+</head>
+
+<body>
+	<div class='container'>
+		<nav class='nav'>
+			<h1>responsive css</h1>
+		</nav>
+
+		<div class='columnwrapper'>
+			<div class='sidebar'>left</div>
+			<div class='main'>
+				main
+				<img src="test.jpg">
+			</div>
+		</div>
+
+		<div class='rightbar'>
+			rightbar
+		</div>
+
+		<footer class='footer'>footer</footer>
+	<div>
+
+</body>
+</html>
