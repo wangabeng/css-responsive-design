@@ -1,0 +1,110 @@
+响应式布局笔记（CSS3秘籍 电子工业出版社）
+▉要点
+✪<meta name=’viewport’ content=’width=device-width’>
+//viewport是指浏览器屏幕，content属性将浏览器宽度设置为手机的屏幕宽度。意思是告诉手机浏览器都不需要缩小。
+
+另外一种等效的设置方式（不是所有浏览器都支持 需要设置浏览器支持前缀）
+@viewport {width:device-width}
+✪把三种常用的浏览设备作为设计目标：
+手机 平板 桌面电脑
+
+✪设置断点
+如小于480px 是一个样式
+481-768px之间 是一个样式
+769- 是一个样式
+一般设置3个 也有设置4个 5个的
+
+✪桌面优先型：
+先设计针对桌面型的网站作为基本设计，然后把这些样式放置到一个外部样式表里。
+随后给手机和平板添加媒体查询。这些媒体查询样式会对基本的桌面设计进行调整，比如删除列，把标题文字变小等。
+✪创建媒体查询：
+<link href=’css/small.css’ rel=’stylesheet’ media=”(width:480px)”>
+
+<link href=’css/small.css’ rel=’stylesheet’ media=”(max-width:480px)”>
+
+
+<link href=’css/ medius.css’ rel=’stylesheet’ media=”(min-width:481px) and max-width:768px”>
+<link href=’css/ max.css’ rel=’stylesheet’ media=”(min-width:769px)”>
+
+
+ie8及更早版本不支持媒体查询：
+解决方法：下载respond.js插件
+<!—[if ite IE 8]-->
+	<script src=’respond.min.js’></script>
+<!—[endif]-->
+
+还可以用以下方法增加媒体查询：
+@import url(css/ medius.css) (max-width:320px)
+IE8及以前的版本不支持（即便用respond.js插件也不支持）
+
+✪还可以在样式表里嵌入媒体查询：
+@media (max-width:480px) {
+	body{
+	//
+}
+.style{
+	//
+}
+}
+
+✪媒体查询使用方法（套路）以桌面版为例：
+
+/*先设置桌面基本样式表*/
+body{
+	//
+}
+/*媒体查询*/
+@media (min-width:480px){
+	body{
+		//
+	}
+}
+
+
+✪媒体查询-手机版优先：
+备注：需要下载使用respond.js插件和IE判断
+<!—[if ite IE 8]-->
+	<script src=’respond.min.js’></script>
+<!—[endif]-->
+
+/*先设置手机版基本样式表*/
+body{
+	//
+}
+/*媒体查询 中型屏幕*/
+@media (min-width:481px) and (max-width:768px){
+	body{
+		//
+	}
+}
+/*媒体查询 桌面屏幕*/
+@media (min-width: 769px){
+	body{
+		//
+	}
+}
+
+
+✪当使用float布局的时候 如果是2列 左边33% 右边67% 当右侧添加1px的border的时候 右侧就会下落（float drop）
+这个时候就需要把border和padding计算到各个列的宽度内
+添加(IE7不支持)
+*{
+	-moz-box-sizing:border-box;
+box-sizing :border-box;
+}
+
+✪图片的自适应宽度：
+
+img{
+	max-width:100%;/*将所有图片的最大宽度设置为其容器的100%宽度 换句话说 图片永远不可能比列 div或者它所在的任何HTML元素更宽*/
+}
+
+例如 要将图片防止在左侧 并且占列宽的40%
+.imgsmallleft{
+	folat:left;
+	max-width:40%;
+}
+然后把这个class添加给这个图片。
+流式图片的不足之处：当图片很宽的时候，可能会模糊失真；当图片在手机看的时候，原本图片很小，客户却不得不下载比显示的图片更大的图片。
+解决方法：
+js和PHP结合，将对应尺寸的图片发给各种设备。
